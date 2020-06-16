@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Labelling Cans on a Production Line</title>
+
+		<meta name="description" content="Automating Metadata Creation">
+		<meta name="author" content="Jo Cook, Astun Technology">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/night.css" id="theme">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background-image="./images/cans.jpg" alt="cans" class="full" data-background-size="cover">
+					<h2>Labelling Cans on a Production Line</h2>
+					<h3>Automating Metadata Creation</h3>
+					<p>
+						<small>Jo Cook, Astun Technology</small>
+					</p>
+					<p class="attribution" style="color:white">Debora Cartagena Pixnio, CC0</p>
+				</section>
+
+				<section  data-background-image="./images/confused.jpg" alt="cans" class="full" data-background-size="cover">
+					<p  class="box-left">Metadata is important, but in large organisations with lots of data, metadata creation and management can be complex and fraught</p>
+				</section>
+
+				<section data-background-image="./images/juggling.jpg" alt="cans" class="full" data-background-size="cover">
+					<p class="box-right">Metadata is also complex, and often data owners have neither the time or the training to complete records in a traditional catalog, or to keep them up to date</p>
+				</section>
+
+				<section data-background-image="./images/automate.png" alt="cans" class="full" data-background-size="cover">
+					<span class="box-right">
+					<p>Luckily we can automate much of the discovery and metadata creation processes</p>
+					<p>One open source option for this is the Metadata Crawler plugin for Talend Open Studio (aka Crawler)</p>
+				</span>
+				<p class="attribution">Sam Storino</p>
+				</section>
+
+
+				<section>
+					<p>Crawler looks for spatial data (vector or raster) in either a file system or a spatial database. For each data source it discovers, it derives as much of the metadata as it can, such as:</p>
+					<ul>
+						<li>Title</li>
+						<li>Extent</li>
+						<li>Coordinate reference system</li>
+						<li>Update Date</li>
+						<li>...</li>
+					</ul>
+				</section>
+
+				<section>
+					<p>Some fields cannot be derived, so Crawlers adds placeholder text (user-defined) for these elements:</p>
+					<ul>
+						<li>Abstract</li>
+						<li>Contact Details</li>
+						<li>Keywords</li>
+						<li>Maintenance Information</li>
+						<li>Constraints</li>
+						<li>Lineage</li>
+					</ul>
+				</section>
+
+				<section>
+					<p>Using a combination of the programatically derived and placeholder elements, Crawler creates a metadata record for each data source it discovers. It also creates a Feature Catalog record for any vector data sources it finds, describing the attributes of the data source</p>
+				</section>
+
+				<section data-background-image="./images/excited-puppy.jpg" alt="excited" class="full" data-background-size="cover">
+					<p class="box-left">For UK metadata, we've modified Crawler so that it outputs metadata in Gemini 2.3 format (and ISO19110 for the Feature Catalogs)</p>
+					<p class="attribution" style="color:grey">Flickr: Eric Danley CC-BY-2.0</p>
+				</section>
+
+				<section>
+					<p>Crawler can insert these records into any Metadata Catalog with a CSW-T (Transactional CSW) endpoint.</p>
+					<p>It can also check for existing records and update them as required.</p>
+				</section>
+
+				<section>
+					<img src="./images/crawler_step_one.png" alt="Crawler Step One"/>
+				</section>
+
+				<section data-background-image="./images/dog_pc.jpg" alt="no human hands" class="full" data-background-size="cover">
+					<p class="box-left">At this stage in proceedings, we have a record for each data source, with some unique elements, and some placeholder elements. No human hands have yet needed to touch the metadata!</p>
+					<p class="attribution">IMGUR: goldenretrieverbailey</p>
+				</section>
+
+				<section>
+					<img src="./images/placeholder_record.png" alt="Placeholders"/>
+				</section>
+
+
+				<section>
+					<p>To cover the unique elements, whilst still keeping the metadata at arms length, we can create excel spreadsheets containing the fields that still need to be completed, with a row for each metadata record.</p>
+					<p>This may seem clumsy but excel is well-known and used. Data owners can copy and paste in bulk to populate "their" records quickly and easily.</p>
+				</section>
+
+				<section>
+					<p>Metadata Crawler derives titles using a set of rules (for databases it uses the form "Table Database.Schema.Tablename") so we can use the same when auto-generating the rows in the excel spreadsheet to ensure a match</p>
+					<p>To ensure we get quality results from this process, we can use controlled text fields for elements where that is appropriate.</p>
+				</section>
+
+				<section>
+					<p>We can then use the GeoNetwork API inside some python script to iterate through the csv and update the metadata in the catalog with the unique values</p>
+				</section>
+
+				<section>
+					<img src="./images/crawler_step_two.png" alt="Crawler Step Two"/>
+				</section>
+
+				<section>
+					<p>For extra geek points, and to automate the workflow even more, we can allow people to send the spreadsheet as a csv to an email address associated with an S3 bucket</p>
+					<p>With another bit of python we can extract and validate the csv, then ensure it's ready for the previous script to process</p>
+				</section>
+
+				<section>
+					<img src="./images/crawler_step_three.png" alt="Crawler Step Three"/>
+				</section>
+
+				<section>
+					<p>Using the Talend gui you can configure Crawler, to enable/disable parts of the workflow</p>
+					<img src="./images/talend_config.png" alt="Talend Config" width="600"/>
+				</section>
+
+				<section>
+					<p>You can also configure the database, file location, metadata catalog and so on:</p>
+					<img src="./images/talend_contexts.png" alt="Talend Contexts" width="600"/>
+				</section>
+
+				<section>
+					<p>Then Crawler can be exported as a batch file for windows or a shell script for linux, to run as an unattended scheduled task</p>
+					<p>You can override the config at the command line, for example to crawl a different database or use a different metadata catalog</p>
+				</section>
+			
+
+		
+			</div>
+
+			<div class="fe-persistent-header">
+ 				<img src=".\images\AstunSmallLogo.png"/>
+			<p style="color:white">Labelling Cans on a Production Line</p>
+			</div>
+
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				center: true,
+				hash: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
