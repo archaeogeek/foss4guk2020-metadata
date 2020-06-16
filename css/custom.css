@@ -91,4 +91,8 @@
 }
 .fe-persistent-header a:nth-child(2) { float: left; }
 
+.reveal a {
+  color:red;
+ }
+
 

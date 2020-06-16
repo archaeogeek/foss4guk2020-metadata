@@ -48,15 +48,18 @@
 					<p>
 						<small>Jo Cook, Astun Technology</small>
 					</p>
-					<p class="attribution" style="color:white">Debora Cartagena Pixnio, CC0</p>
+					<p class="attribution" style="color:white">Debora Cartagena Pixnio, CC-0</p>
 				</section>
 
 				<section  data-background-image="./images/confused.jpg" alt="cans" class="full" data-background-size="cover">
-					<p  class="box-left">Metadata is important, but in large organisations with lots of data, metadata creation and management can be complex and fraught</p>
+					<p  class="box-left">Metadata is important, but in large organisations with lots of data, data discovery, metadata creation and management can be complex and fraught</p>
+					<p class="attribution" style="color:white">Pigsels, CC-0</p>
 				</section>
 
 				<section data-background-image="./images/juggling.jpg" alt="cans" class="full" data-background-size="cover">
 					<p class="box-right">Metadata is also complex, and often data owners have neither the time or the training to complete records in a traditional catalog, or to keep them up to date</p>
+					<p class="attribution" style="color:white">Michael Jastremski, openphoto.net</p>
+					<aside class="notes">Simply giving all data owners editing access to a metadata catalog might be problematic</aside>
 				</section>
 
 				<section data-background-image="./images/automate.png" alt="cans" class="full" data-background-size="cover">
@@ -69,26 +72,9 @@
 
 
 				<section>
-					<p>Crawler looks for spatial data (vector or raster) in either a file system or a spatial database. For each data source it discovers, it derives as much of the metadata as it can, such as:</p>
-					<ul>
-						<li>Title</li>
-						<li>Extent</li>
-						<li>Coordinate reference system</li>
-						<li>Update Date</li>
-						<li>...</li>
-					</ul>
-				</section>
-
-				<section>
-					<p>Some fields cannot be derived, so Crawlers adds placeholder text (user-defined) for these elements:</p>
-					<ul>
-						<li>Abstract</li>
-						<li>Contact Details</li>
-						<li>Keywords</li>
-						<li>Maintenance Information</li>
-						<li>Constraints</li>
-						<li>Lineage</li>
-					</ul>
+					<p>Crawler looks for spatial data (vector or raster) in either a file system or a spatial database. For each data source it discovers, it derives as much of the metadata as it can</p>
+					<p>Some fields cannot be derived, so Crawlers adds placeholder text (user-defined) for these elements</p>
+					<aside class="notes">Programatic: Title, extent, coordinate reference system, last update date, URI, placeholder: Abstract, contact details, keywords, lineage, update frequency, constraints etc</aside>
 				</section>
 
 				<section>
@@ -103,6 +89,7 @@
 				<section>
 					<p>Crawler can insert these records into any Metadata Catalog with a CSW-T (Transactional CSW) endpoint.</p>
 					<p>It can also check for existing records and update them as required.</p>
+					<aside class="notes">Not just Geonetwork</aside>
 				</section>
 
 				<section>
@@ -110,7 +97,7 @@
 				</section>
 
 				<section data-background-image="./images/dog_pc.jpg" alt="no human hands" class="full" data-background-size="cover">
-					<p class="box-left">At this stage in proceedings, we have a record for each data source, with some unique elements, and some placeholder elements. No human hands have yet needed to touch the metadata!</p>
+					<p class="box-left">At this stage in proceedings, we have a record for each data source, with some programmatic elements, some placeholder elements, and a feature catalog record describing the vector attributes. No human hands have yet needed to touch the metadata!</p>
 					<p class="attribution">IMGUR: goldenretrieverbailey</p>
 				</section>
 
@@ -125,8 +112,12 @@
 				</section>
 
 				<section>
-					<p>Metadata Crawler derives titles using a set of rules (for databases it uses the form "Table Database.Schema.Tablename") so we can use the same when auto-generating the rows in the excel spreadsheet to ensure a match</p>
+					<p>Metadata Crawler derives titles using a set of rules (for databases it uses the form <code>Database.Schema.Tablename</code>) so we can use the same when auto-generating the rows in the excel spreadsheet to ensure a match</p>
 					<p>To ensure we get quality results from this process, we can use controlled text fields for elements where that is appropriate.</p>
+				</section>
+
+				<section>
+					<img src="./images/template.png" alt="Excel template"/>
 				</section>
 
 				<section>
@@ -147,7 +138,7 @@
 				</section>
 
 				<section>
-					<p>Using the Talend gui you can configure Crawler, to enable/disable parts of the workflow</p>
+					<p>Using the Talend gui you can configure Crawler to enable/disable parts of the workflow</p>
 					<img src="./images/talend_config.png" alt="Talend Config" width="600"/>
 				</section>
 
@@ -159,6 +150,25 @@
 				<section>
 					<p>Then Crawler can be exported as a batch file for windows or a shell script for linux, to run as an unattended scheduled task</p>
 					<p>You can override the config at the command line, for example to crawl a different database or use a different metadata catalog</p>
+					<aside class="notes">So while it looks complex, it's a set up once, configure and use many times kind of thing</aside>
+				</section>
+
+				<section data-background-image="./images/engage_guide.jpg" alt="demo alert" class="full" data-background-size="cover">
+					<h3>Demo Alert (If time allows)!</h3>
+					<p class="attribution">Flickr: Bernard Duport CC-BY-SA-2.0</p>
+					<aside class="notes">1: empty geonetwork 2: run shell script 3: placeholders in geonetwork 4: run python 5: completed records</aside>
+				</section>
+
+				<section>
+					<h3>In summary:</h3>
+					<p>With some initial setup and configuration we can set up a system that automatically discovers data sources and creates metadata, and allows data owners to keep them up to date by sending spreadsheets via email.</p>
+					<p>We get high-quality, valid and up to date metadata with none of the time-consuming management and editing.</p>
+				</section>
+
+				<section>
+					<h3>Thank You!</h3>
+					<p>Jo Cook, <a href="astuntechnology.com" target="_blank">Astun Technology</a></p>
+					<p>e: <a href="mailto:jocook@astuntechnology.com?subject=Automating Metadata">jocook@astuntechnology</a></p>
 				</section>
 			
 
