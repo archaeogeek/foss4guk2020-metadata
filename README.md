@@ -1,3 +1,3 @@
-# Don't Let Metadata Get You Down- talk for FOSS4GUK 2019
+# Labelling Cans on a Production Line, aka Automating Metadata Production- talk for FOSS4GUK 2020
 
-See [archaeogeek.github.io/dontletmetadatagetyoudown](https://archaeogeek.github.io/dontletmetadatagetyoudown) for the live version of this
+See [archaeogeek.github.io/foss4guk2020-metadata](https://archaeogeek.github.io/foss4guk2020-metadata) for the live version of this
