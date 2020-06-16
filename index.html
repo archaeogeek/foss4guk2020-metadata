@@ -43,16 +43,15 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-background-image="./images/cans.jpg" alt="cans" class="full" data-background-size="cover">
-					<h2>Labelling Cans on a Production Line</h2>
-					<h3>Automating Metadata Creation</h3>
-					<p>
-						<small>Jo Cook, Astun Technology</small>
+					<h2 class="box">Labelling Cans on a Production Line</h2>
+					<h3 class="box">Automating Metadata Creation</h3>
+					<p class="box">Jo Cook, Astun Technology</p>
 					</p>
 					<p class="attribution" style="color:white">Debora Cartagena Pixnio, CC-0</p>
 				</section>
 
 				<section  data-background-image="./images/confused.jpg" alt="cans" class="full" data-background-size="cover">
-					<p  class="box-left">Metadata is important, but in large organisations with lots of data, data discovery, metadata creation and management can be complex and fraught</p>
+					<p  class="box-left">Metadata is important, but in large organisations data discovery, metadata creation, and management can be expensive and time-consuming</p>
 					<p class="attribution" style="color:white">Pigsels, CC-0</p>
 				</section>
 
@@ -71,25 +70,21 @@
 				</section>
 
 
-				<section>
-					<p>Crawler looks for spatial data (vector or raster) in either a file system or a spatial database. For each data source it discovers, it derives as much of the metadata as it can</p>
-					<p>Some fields cannot be derived, so Crawlers adds placeholder text (user-defined) for these elements</p>
-					<aside class="notes">Programatic: Title, extent, coordinate reference system, last update date, URI, placeholder: Abstract, contact details, keywords, lineage, update frequency, constraints etc</aside>
+				<section data-background-image="./images/files.jpg" alt="files" class="full" data-background-size="cover">>
+					<p class="box-left">Crawler looks for spatial data in file systems and databases. For each data source it finds, it derives as much of the metadata as it can</p>
+					<p class="attribution">wikimedia.org CC-BY-3.0</p>
+					<aside class="notes">Vector and Raster data. Programmatic: Title, extent, coordinate reference system, last update date, URI, placeholder: Abstract, contact details, keywords, lineage, update frequency, constraints etc</aside>
 				</section>
 
 				<section>
-					<p>Using a combination of the programatically derived and placeholder elements, Crawler creates a metadata record for each data source it discovers. It also creates a Feature Catalog record for any vector data sources it finds, describing the attributes of the data source</p>
+					<p>Crawler creates a metadata record for each data source it discovers, and a Feature Catalog record for vector data sources.</p>
+					<p>It can insert these records into any Metadata Catalog with a CSW-T (Transactional CSW) endpoint.</p>
+					<aside class="notes">Not just Geonetwork. Feature Catalog for vector attributes. Can update existing records</aside>
 				</section>
 
 				<section data-background-image="./images/excited-puppy.jpg" alt="excited" class="full" data-background-size="cover">
-					<p class="box-left">For UK metadata, we've modified Crawler so that it outputs metadata in Gemini 2.3 format (and ISO19110 for the Feature Catalogs)</p>
+					<p class="box-left">For UK metadata, we've modified Crawler so that it outputs metadata in Gemini 2.3 format (and ISO19110 for the Feature Catalog)</p>
 					<p class="attribution" style="color:grey">Flickr: Eric Danley CC-BY-2.0</p>
-				</section>
-
-				<section>
-					<p>Crawler can insert these records into any Metadata Catalog with a CSW-T (Transactional CSW) endpoint.</p>
-					<p>It can also check for existing records and update them as required.</p>
-					<aside class="notes">Not just Geonetwork</aside>
 				</section>
 
 				<section>
@@ -97,7 +92,7 @@
 				</section>
 
 				<section data-background-image="./images/dog_pc.jpg" alt="no human hands" class="full" data-background-size="cover">
-					<p class="box-left">At this stage in proceedings, we have a record for each data source, with some programmatic elements, some placeholder elements, and a feature catalog record describing the vector attributes. No human hands have yet needed to touch the metadata!</p>
+					<p class="box-left">At this stage in proceedings, we have a record for each data source, with some programmatic elements, some placeholder elements, and a linked feature catalog record describing the attributes. Human hands have yet to touch the metadata!</p>
 					<p class="attribution">IMGUR: goldenretrieverbailey</p>
 				</section>
 
@@ -107,13 +102,9 @@
 
 
 				<section>
-					<p>To cover the unique elements, whilst still keeping the metadata at arms length, we can create excel spreadsheets containing the fields that still need to be completed, with a row for each metadata record.</p>
+					<p>We generate excel spreadsheets with a row per record for data owners to complete the manual fields.</p>
 					<p>This may seem clumsy but excel is well-known and used. Data owners can copy and paste in bulk to populate "their" records quickly and easily.</p>
-				</section>
-
-				<section>
-					<p>Metadata Crawler derives titles using a set of rules (for databases it uses the form <code>Database.Schema.Tablename</code>) so we can use the same when auto-generating the rows in the excel spreadsheet to ensure a match</p>
-					<p>To ensure we get quality results from this process, we can use controlled text fields for elements where that is appropriate.</p>
+					<aside class="notes">Metadata Crawler derives titles using a set of rules (for databases it uses the form <code>Database.Schema.Tablename</code>) so we can use the same when auto-generating the rows in the excel spreadsheet to ensure a match. To ensure we get quality results from this process, we can use controlled text fields for elements where that is appropriate.</aside>
 				</section>
 
 				<section>
@@ -121,7 +112,7 @@
 				</section>
 
 				<section>
-					<p>We can then use the GeoNetwork API inside some python script to iterate through the csv and update the metadata in the catalog with the unique values</p>
+					<p>We can then use the GeoNetwork API inside a python script to iterate through the csv and update the metadata in the catalog with the unique values</p>
 				</section>
 
 				<section>
@@ -159,16 +150,25 @@
 					<aside class="notes">1: empty geonetwork 2: run shell script 3: placeholders in geonetwork 4: run python 5: completed records</aside>
 				</section>
 
+				<section data-background-image="./images/fly.jpg" alt="fly" class="full" data-background-size="cover">
+					<h3 class="box">Zero to Hero:</h3>
+					<span class="box-right">
+					<p>With some initial setup and configuration we get a system that automatically discovers data sources and creates metadata, and allows data owners to keep them up to date by sending spreadsheets via email with little time-consuming management and editing</p>
+				</span>
+					<p class="attribution" style="color:white">US Airforce</p>
+				</section>
+
 				<section>
-					<h3>In summary:</h3>
-					<p>With some initial setup and configuration we can set up a system that automatically discovers data sources and creates metadata, and allows data owners to keep them up to date by sending spreadsheets via email.</p>
-					<p>We get high-quality, valid and up to date metadata with none of the time-consuming management and editing.</p>
+					<h3>Where to find the components</h3>
+					<a target="_blank" href="https://www.talend.com/products/talend-open-studio/">www.talend.com/products/talend-open-studio/</a><br />
+					<a target="_blank" href="https://talend-spatial.github.io/">talend-spatial.github.io/</a><br />
+					<a target="_blank" href="https://github.com/talend-spatial/workspace-metadata-crawler">github.com/talend-spatial/workspace-metadata-crawler</a>
 				</section>
 
 				<section>
 					<h3>Thank You!</h3>
 					<p>Jo Cook, <a href="astuntechnology.com" target="_blank">Astun Technology</a></p>
-					<p>e: <a href="mailto:jocook@astuntechnology.com?subject=Automating Metadata">jocook@astuntechnology</a></p>
+					<p><a href="mailto:jocook@astuntechnology.com?subject=Automating Metadata">jocook@astuntechnology</a></p>
 				</section>
 			
 
